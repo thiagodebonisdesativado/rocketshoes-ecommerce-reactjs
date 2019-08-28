@@ -12,7 +12,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.getProductRequest();
-    console.log(this.state);
+    console.log(this.props);
   }
 
   render() {
