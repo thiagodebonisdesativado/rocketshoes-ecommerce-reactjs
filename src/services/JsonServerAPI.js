@@ -1,5 +1,7 @@
 import Axios from 'axios';
 
-const instance = Axios.create({
+const API = Axios.create({
   baseURL: 'http://localhost:3333',
 });
+
+export default API;

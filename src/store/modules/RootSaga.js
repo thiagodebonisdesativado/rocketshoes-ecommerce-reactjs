@@ -1,7 +1,10 @@
 import { all } from 'redux-saga/effects';
 
-import Cart from './Cart/sagas';
+import Product from './Product/sagas';
 
+// prettier-ignore
 export default function* rootSaga() {
-  yield all([Cart]);
+  yield all([
+    Product
+  ]);
 }
