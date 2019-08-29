@@ -18,8 +18,13 @@ export const Avatar = styled.img`
 `;
 
 export const Description = styled.h4`
+  width: auto;
+  height: 75px;
   padding: 0 1rem 0 0.5rem;
   text-align: justify;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Value = styled.strong`

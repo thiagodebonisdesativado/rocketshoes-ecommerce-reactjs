@@ -9,6 +9,7 @@ export default createGlobalStyle`
   ${RobotoFont}
 
   body {
+    overflow: ${({ isLoading }) => (isLoading ? 'hidden' : 'auto')};
     font: 1rem Roboto, sans-serif;
     color: white;
     background: #191920 url(${Background}) no-repeat center top;

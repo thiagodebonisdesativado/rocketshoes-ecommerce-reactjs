@@ -1,5 +1,6 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 
+import { TYPES } from './reducer';
 import { getProductSuccess } from './actions';
 import API from 'services/JsonServerAPI';
 
@@ -11,5 +12,5 @@ export function* getAllProducts() {
 
 // prettier-ignore
 export default all([
-  takeLatest('@product/REQUEST_ALL', getAllProducts)
+  takeLatest(TYPES.GET, getAllProducts)
 ]);

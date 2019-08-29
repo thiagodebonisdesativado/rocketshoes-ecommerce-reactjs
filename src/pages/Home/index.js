@@ -3,31 +3,44 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as ProductActions from 'store/modules/Product/actions';
+import { productRequest } from 'store/modules/Product/actions';
+import { getCart } from 'store/modules/Cart/actions';
+
+import GlobalStyle from 'styles/Global';
 import Section from './styles';
-import { ProductList } from 'components';
+import { ProductList, LoadingSpinner } from 'components';
 
 class Home extends Component {
-  state = {};
-
   componentDidMount() {
-    this.props.getProductRequest();
-    console.log(this.props);
+    this.props.productRequest();
+    this.props.getCart();
   }
 
   render() {
     return (
-      <Section>
-        <ProductList />
-      </Section>
+      <>
+        <GlobalStyle isLoading={this.props.loading} />
+        <Section isLoading={this.props.loading}>
+          {this.props.loading && <LoadingSpinner size={25} />}
+          {!this.props.loading && <ProductList />}
+        </Section>
+      </>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+Home.propTypes = {
+  productRequest: PropTypes.func.isRequired,
+  getCart: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
-// prettier-ignore
-const mapDispatchToProps = dispatch => bindActionCreators(ProductActions, dispatch);
+const mapStateToProps = ({ ProductReducer }) => ({
+  loading: ProductReducer.loading,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ productRequest, getCart }, dispatch);
 
 export default connect(
   mapStateToProps,

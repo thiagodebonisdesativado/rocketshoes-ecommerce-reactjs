@@ -1,16 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { Button, AmountContainer } from './styles';
-import { MdAddShoppingCart } from 'react-icons/md';
+import { addToCart } from 'store/modules/Cart/actions';
+import { Button, Container } from './styles';
+import { ProductAmount, LoadingSpinner } from 'components';
 
-export default function AddToCart() {
+function AddToCart({ productID, addToCart, loading }) {
   return (
-    <Button type="button">
-      <AmountContainer>
-        <MdAddShoppingCart size={15} />
-        <small>0</small>
-      </AmountContainer>
-      ADICIONAR AO CARRINHO
+    <Button
+      id={productID}
+      type="button"
+      onClick={_ => addToCart(productID)}
+      disabled={loading}
+    >
+      <ProductAmount productID={productID} />
+      <Container isLoading={loading}>
+        {loading && <LoadingSpinner />}
+        {!loading && 'ADICIONAR AO CARRINHO'}
+      </Container>
     </Button>
   );
 }
+
+AddToCart.propTypes = {
+  productID: PropTypes.number.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = ({ CartReducer }) => ({
+  loading: CartReducer.loading,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ addToCart }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddToCart);

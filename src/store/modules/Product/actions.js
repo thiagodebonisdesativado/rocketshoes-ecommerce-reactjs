@@ -1,12 +1,14 @@
-export function getProductRequest() {
+import { TYPES } from './reducer';
+
+export function productRequest() {
   return {
-    type: '@product/REQUEST_ALL',
+    type: TYPES.GET,
   };
 }
 
 export function getProductSuccess(productList) {
   return {
-    type: '@product/REQUEST_ALL_SUCCESS',
+    type: TYPES.GET_SUCCESS,
     productList,
   };
 }

@@ -1,46 +1,56 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
+import { convertToCurrency } from 'utils/Product';
 
 import List from './styles';
 import { ProductItem } from 'components';
 
-export default function ProductList() {
+function ProductList({ productList }) {
   return (
     <List>
-      <ProductItem
-        avatar="https://static.zattini.com.br/produtos/sapato-social-venetto-thor-confort-masculino/38/EPL-0137-138/EPL-0137-138_zoom1.jpg?resize=544:*"
-        description="Tênis muito legal com título muito grande que quebra varias linhas
-        kaekaekaekaekaekakeake akeakekaekakeak"
-        value="R$179,99"
-      />
-      <ProductItem
-        avatar="https://www.procopio.shop/imagens/produtos/00025954/Detalhes/tenis-adidas-fem-calibrate-asweerun-f36733.jpg"
-        description="Tênis muito legal com título muito grande que quebra varias linhas"
-        value="R$50.000,00"
-      />
-      <ProductItem
-        avatar="https://static.zattini.com.br/produtos/sapato-social-venetto-thor-confort-masculino/38/EPL-0137-138/EPL-0137-138_zoom1.jpg?resize=544:*"
-        description="Tênis muito legal com"
-        value="R$179,99"
-      />
-
-      <ProductItem
-        avatar="https://static.zattini.com.br/produtos/sapato-social-venetto-thor-confort-masculino/38/EPL-0137-138/EPL-0137-138_zoom1.jpg?resize=544:*"
-        description="Tênis muito legal com título muito grande que quebra varias linhas
-        kaekaekaekaekaekakeake akeakekaekakeak"
-        value="R$179,99"
-      />
-      <ProductItem
-        avatar="https://static.zattini.com.br/produtos/sapato-social-venetto-thor-confort-masculino/38/EPL-0137-138/EPL-0137-138_zoom1.jpg?resize=544:*"
-        description="Tênis muito legal com título muito grande que quebra varias linhas
-        kaekaekaekaekaekakeake akeakekaekakeak"
-        value="R$179,99"
-      />
-      <ProductItem
-        avatar="https://static.zattini.com.br/produtos/sapato-social-venetto-thor-confort-masculino/38/EPL-0137-138/EPL-0137-138_zoom1.jpg?resize=544:*"
-        description="Tênis muito legal com título muito grande que quebra varias linhas
-        kaekaekaekaekaekakeake akeakekaekakeak"
-        value="R$179,99"
-      />
+      {productList.map(({ id, image, priceConverted, title }) => {
+        return (
+          <ProductItem
+            key={id}
+            id={id}
+            avatar={image}
+            description={title}
+            price={priceConverted}
+          />
+        );
+      })}
     </List>
   );
 }
+
+ProductList.propTypes = {
+  productList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      priceConverted: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+};
+
+const convertPrice = createSelector(
+  state => state.productList,
+  productList =>
+    productList.map(product => {
+      return {
+        ...product,
+        priceConverted: convertToCurrency(product.price),
+      };
+    })
+);
+
+const mapStateToProps = ({ ProductReducer }) => ({
+  productList: convertPrice(ProductReducer),
+});
+
+export default connect(mapStateToProps)(ProductList);

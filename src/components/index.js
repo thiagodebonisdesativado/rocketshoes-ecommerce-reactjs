@@ -4,6 +4,7 @@ export { default as CartList } from './CartList';
 export { default as CartItem } from './CartItem';
 export { default as CartAmount } from './CartAmount';
 export { default as PriceTotal } from './PriceTotal';
+export { default as ProductAmount } from './ProductAmount';
 export { default as ProductList } from './ProductList';
 export { default as ProductItem } from './ProductItem';
 export { default as ProductDescription } from './ProductDescription';
@@ -28,3 +29,4 @@ export { default as AmountController } from './AmountController';
 // OTHERS COMPONENTS BARREL
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
+export { default as LoadingSpinner } from './LoadingSpinner';
