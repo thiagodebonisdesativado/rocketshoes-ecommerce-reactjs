@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Item, Avatar, Description, Value } from './styles';
-import { AddToCart } from 'components';
+import { Item, Description, Price } from './styles';
+import { ProductAvatar, AddToCart } from 'components';
 
 function ProductItem({ id, avatar, description, price }) {
   return (
     <Item>
-      <Avatar src={avatar} alt={description} />
+      <ProductAvatar theme="productItem" src={avatar} alt={description} />
       <Description>{description}</Description>
-      <Value>{price}</Value>
+      <Price>{price}</Price>
       <AddToCart productID={id} />
     </Item>
   );

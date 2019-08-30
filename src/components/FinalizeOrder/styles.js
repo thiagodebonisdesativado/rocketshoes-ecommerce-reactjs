@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Colors from 'styles/Colors';
-import { darken } from 'polished';
+import { lighten, darken } from 'polished';
 
 const Button = styled.button`
   padding: 1rem 1.5rem 1rem 1.5rem;
@@ -12,6 +12,10 @@ const Button = styled.button`
 
   &:hover {
     background-color: ${darken(0.3, Colors.purples.dark1)};
+  }
+
+  &:disabled {
+    background-color: ${lighten(0.3, Colors.purples.dark1)};
   }
 `;
 

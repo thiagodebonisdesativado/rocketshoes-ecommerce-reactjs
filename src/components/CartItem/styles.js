@@ -33,9 +33,3 @@ export const Item = styled.li`
 export const Subtotal = styled.strong`
   ${Breakpoints.xs`margin: 0.4rem 0 0.4rem 0;`}
 `;
-
-export const ButtonContainer = styled.div`
-  width: 100%;
-
-  ${Breakpoints.lg`width: auto;`}
-`;

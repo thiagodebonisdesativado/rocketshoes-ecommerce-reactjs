@@ -16,7 +16,7 @@ function AddToCart({ productID, addToCart, loading }) {
       disabled={loading}
     >
       <ProductAmount productID={productID} />
-      <Container isLoading={loading}>
+      <Container>
         {loading && <LoadingSpinner />}
         {!loading && 'ADICIONAR AO CARRINHO'}
       </Container>

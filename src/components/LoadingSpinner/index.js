@@ -3,8 +3,6 @@ import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FaSpinner } from 'react-icons/fa';
 
-import { checkThemeName } from 'utils/ValidationProps';
-
 import Container from './styles';
 import Themes from './themes';
 
@@ -20,8 +18,6 @@ function LoadingSpinner({ theme }) {
 
 LoadingSpinner.defaultProps = {
   theme: 'small',
-  checkTheme: (Themes, propObjValue, funcName, componentName) =>
-    checkThemeName(Themes, propObjValue, funcName, componentName),
 };
 
 LoadingSpinner.propTypes = {

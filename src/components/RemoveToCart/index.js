@@ -6,17 +6,19 @@ import { MdDelete } from 'react-icons/md';
 
 import { removeToCart } from 'store/modules/Cart/actions';
 
-import Button from './styles';
+import { Container, Button } from './styles';
 
 function RemoveToCart({ productID, removeToCart, loading }) {
   return (
-    <Button
-      type="button"
-      onClick={_ => removeToCart(productID)}
-      disabled={loading}
-    >
-      <MdDelete size={20} />
-    </Button>
+    <Container>
+      <Button
+        type="button"
+        onClick={_ => removeToCart(productID)}
+        disabled={loading}
+      >
+        <MdDelete size={20} />
+      </Button>
+    </Container>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Item, Subtotal, ButtonContainer } from './styles';
+import { Item, Subtotal } from './styles';
 import {
   ProductAvatar,
   ProductDescription,
@@ -19,13 +19,11 @@ function CartItem({
 }) {
   return (
     <Item>
-      <ProductAvatar src={productAvatar} alt={title} />
+      <ProductAvatar theme="cartItem" src={productAvatar} alt={title} />
       <ProductDescription description={title} price={priceConverted} />
       <AmountController productID={productID} amount={amount} />
       <Subtotal>{subtotalConverted}</Subtotal>
-      <ButtonContainer>
-        <RemoveToCart productID={productID} />
-      </ButtonContainer>
+      <RemoveToCart productID={productID} />
     </Item>
   );
 }

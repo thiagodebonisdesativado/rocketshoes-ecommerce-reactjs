@@ -24,7 +24,6 @@ const INITIAL_STATE = Immutable({
   errorMessage: '',
   success: false,
   successMessage: '',
-  successData: null,
   cartList: [],
 });
 

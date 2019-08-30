@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import Colors from 'styles/Colors';
 import { darken } from 'polished';
 
+export const Container = styled.div`
+  flex: 1;
+  font-size: 0.75rem;
+`;
+
 export const Button = styled.button`
   cursor: pointer;
   width: 93%;
@@ -23,9 +28,4 @@ export const Button = styled.button`
     cursor: not-allowed;
     background-color: ${darken(0.2, Colors.purples.dark2)};
   }
-`;
-
-export const Container = styled.div`
-  flex: 1;
-  padding-right: ${({ isLoading }) => (isLoading ? '1rem' : '0')};
 `;

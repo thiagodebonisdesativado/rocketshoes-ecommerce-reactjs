@@ -1,13 +1,22 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 
-import Img from './styles';
+import { Container, Img } from './styles';
+import Themes from './themes';
 
-function ProductAvatar({ src, alt }) {
-  return <Img src={src} alt={alt} />;
+function ProductAvatar({ theme, src, alt }) {
+  return (
+    <ThemeProvider theme={Themes[theme]}>
+      <Container>
+        <Img src={src} alt={alt} />
+      </Container>
+    </ThemeProvider>
+  );
 }
 
 ProductAvatar.propTypes = {
+  theme: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
 };

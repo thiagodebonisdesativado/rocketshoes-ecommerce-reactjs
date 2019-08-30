@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import Reset from './Reset';
 import RobotoFont from './Fonts';
 import Background from 'assets/images/background.svg';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
   ${Reset}
