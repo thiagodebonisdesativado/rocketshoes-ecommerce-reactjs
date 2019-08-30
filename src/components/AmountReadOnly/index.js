@@ -1,7 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Input from './styles';
 
-export default function AmountReadOnly() {
-  return <Input type="text" readOnly value={100} />;
+function AmountReadOnly({ amount }) {
+  return <Input type="text" readOnly placeholder={amount} />;
 }
+
+AmountReadOnly.propTypes = {
+  amount: PropTypes.number.isRequired,
+};
+
+export default AmountReadOnly;

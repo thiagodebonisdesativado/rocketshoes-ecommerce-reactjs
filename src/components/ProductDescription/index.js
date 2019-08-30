@@ -1,14 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, Price } from './styles';
 
-export default function ProductDescription() {
+function ProductDescription({ description, price }) {
   return (
     <Container>
-      <span>
-        Tênis muito legal kaekaekkekaekeakea aekeakeaekeakeaekeake eqkekqekqkeqk
-      </span>
-      <Price>R$129,00</Price>
+      <span>{description}</span>
+      <Price>{price}</Price>
     </Container>
   );
 }
+
+ProductDescription.propTypes = {
+  description: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+};
+
+export default ProductDescription;

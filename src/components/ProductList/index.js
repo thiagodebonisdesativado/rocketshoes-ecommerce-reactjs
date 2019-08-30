@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { convertToCurrency } from 'utils/Product';
+import { convertProductPrice } from 'utils/StateManipulation';
 
 import List from './styles';
 import { ProductItem } from 'components';
@@ -44,7 +44,7 @@ const convertPrice = createSelector(
     productList.map(product => {
       return {
         ...product,
-        priceConverted: convertToCurrency(product.price),
+        priceConverted: convertProductPrice(product.price),
       };
     })
 );

@@ -1,23 +1,31 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FaSpinner } from 'react-icons/fa';
 
-import Container from './styles';
+import { checkThemeName } from 'utils/ValidationProps';
 
-function LoadingSpinner({ size }) {
+import Container from './styles';
+import Themes from './themes';
+
+function LoadingSpinner({ theme }) {
   return (
-    <Container>
-      <FaSpinner size={size} color={'white'} />
-    </Container>
+    <ThemeProvider theme={Themes[theme]}>
+      <Container>
+        <FaSpinner color={'white'} />
+      </Container>
+    </ThemeProvider>
   );
 }
 
 LoadingSpinner.defaultProps = {
-  size: 15,
+  theme: 'small',
+  checkTheme: (Themes, propObjValue, funcName, componentName) =>
+    checkThemeName(Themes, propObjValue, funcName, componentName),
 };
 
 LoadingSpinner.propTypes = {
-  size: PropTypes.number,
+  theme: PropTypes.string,
 };
 
 export default LoadingSpinner;

@@ -1,6 +1,6 @@
 import { TYPES } from './reducer';
 
-export function productRequest() {
+export function getProduct() {
   return {
     type: TYPES.GET,
   };

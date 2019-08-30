@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
 
-import { filterProductAmount } from 'utils/Cart';
+import { filterProductAmount } from 'utils/StateManipulation';
+
 import Container from './styles';
 
 function ProductAmount({ productID, amount }) {
