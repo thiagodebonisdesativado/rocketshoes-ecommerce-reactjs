@@ -12,6 +12,7 @@ export { default as ProductDescription } from './ProductDescription';
 // BUTTONS COMPONENTS BARREL
 export { default as AddToCart } from './AddToCart';
 export { default as AddAmount } from './AddAmount';
+export { default as BackToHome } from './BackToHome';
 export { default as FinalizeOrder } from './FinalizeOrder';
 export { default as RemoveAmount } from './RemoveAmount';
 export { default as RemoveToCart } from './RemoveToCart';
@@ -22,6 +23,7 @@ export { default as AmountReadOnly } from './AmountReadOnly';
 // IMAGES COMPONENTS BARREL
 export { default as Logotype } from './Logotype';
 export { default as ProductAvatar } from './ProductAvatar';
+export { default as Error404Avatar } from './Error404Avatar';
 
 // CONTROLLERS COMPONENTS BARREL
 export { default as AmountController } from './AmountController';

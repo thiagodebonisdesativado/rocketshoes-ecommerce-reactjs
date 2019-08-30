@@ -7,6 +7,10 @@ const Colors = {
   greys: {
     light1: '#eeeeee',
     light2: '#b3b3b3',
+    dark1: '#191920',
+  },
+  greens: {
+    light1: '#39ad31',
   },
 };
 

@@ -63,5 +63,16 @@
       "image": "https://github.com/thiagodebonisoficial/rocketshoes-reactjs/blob/master/src/assets/images/products/tenis6.jpg?raw=true"
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "id": 1,
+      "amount": 2,
+      "subtotal": 359.8
+    },
+    {
+      "id": 2,
+      "amount": 1,
+      "subtotal": 139.9
+    }
+  ]
 }

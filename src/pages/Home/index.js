@@ -8,7 +8,7 @@ import { getCart } from 'store/modules/Cart/actions';
 
 import GlobalStyle from 'styles/Global';
 import Section from './styles';
-import { ProductList, LoadingSpinner } from 'components';
+import { Header, ProductList, LoadingSpinner } from 'components';
 
 class Home extends Component {
   componentDidMount() {
@@ -20,6 +20,7 @@ class Home extends Component {
     return (
       <>
         <GlobalStyle isLoading={this.props.loading} />
+        <Header />
         <Section isLoading={this.props.loading}>
           {this.props.loading && <LoadingSpinner theme="large" />}
           {!this.props.loading && <ProductList />}

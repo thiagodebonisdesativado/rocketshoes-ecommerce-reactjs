@@ -10,7 +10,7 @@ import { getCart } from 'store/modules/Cart/actions';
 
 import GlobalStyle from 'styles/Global';
 import Section from './styles';
-import { CartList, Footer } from 'components';
+import { Header, CartList, Footer } from 'components';
 
 class Cart extends Component {
   componentDidMount() {
@@ -22,6 +22,7 @@ class Cart extends Component {
     return (
       <>
         <GlobalStyle isLoading={false} />
+        <Header />
         <Section isLoading={false}>
           {this.props.hasProduct && <Footer />}
           {this.props.hasProduct && <CartList />}
