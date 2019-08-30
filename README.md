@@ -48,6 +48,7 @@ and these links to view the database:
 
 # Developed with
 
+- [AXIOS](https://github.com/axios/axios)
 - [WEBPACK](https://webpack.js.org/)
 - [BABEL](https://babeljs.io/)
 - [ESLINT](https://eslint.org/)
@@ -55,6 +56,7 @@ and these links to view the database:
 - [PRETTIER](https://prettier.io/)
 - [PROP-TYPES](https://www.npmjs.com/package/prop-types)
 - [POLISHED](https://github.com/styled-components/polished)
+- [JSON-SERVER](https://github.com/typicode/json-server)
 - [REACT](https://reactjs.org/)
 - [REACT-ROUTER-DOM](https://www.npmjs.com/package/react-router-dom)
 - [REACT-REDUX](https://react-redux.js.org/)
