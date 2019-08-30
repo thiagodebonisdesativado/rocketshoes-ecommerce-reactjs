@@ -9,13 +9,20 @@ import {
   RemoveToCart,
 } from 'components';
 
-function CartItem({ productID, productAvatar, title, priceConverted, amount }) {
+function CartItem({
+  productID,
+  productAvatar,
+  title,
+  priceConverted,
+  amount,
+  subtotalConverted,
+}) {
   return (
     <Item>
       <ProductAvatar src={productAvatar} alt={title} />
       <ProductDescription description={title} price={priceConverted} />
-      <AmountController amount={amount} />
-      <Subtotal>{priceConverted}</Subtotal>
+      <AmountController productID={productID} amount={amount} />
+      <Subtotal>{subtotalConverted}</Subtotal>
       <ButtonContainer>
         <RemoveToCart productID={productID} />
       </ButtonContainer>

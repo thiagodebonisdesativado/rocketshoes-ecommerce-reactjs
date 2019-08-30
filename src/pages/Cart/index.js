@@ -10,7 +10,7 @@ import { getCart } from 'store/modules/Cart/actions';
 
 import GlobalStyle from 'styles/Global';
 import Section from './styles';
-import { CartList, Footer, LoadingSpinner } from 'components';
+import { CartList, Footer } from 'components';
 
 class Cart extends Component {
   componentDidMount() {
@@ -21,11 +21,11 @@ class Cart extends Component {
   render() {
     return (
       <>
-        <GlobalStyle isLoading={this.props.loading} />
-        <Section isLoading={this.props.loading}>
-          {this.props.loading && <LoadingSpinner theme="large" />}
-          {!this.props.loading && this.props.hasProduct && <CartList />}
-          {!this.props.loading && this.props.hasProduct && <Footer />}
+        <GlobalStyle isLoading={false} />
+        <Section isLoading={false}>
+          {this.props.hasProduct && <Footer />}
+          {this.props.hasProduct && <CartList />}
+          {this.props.hasProduct && <Footer />}
         </Section>
       </>
     );
@@ -36,7 +36,6 @@ Cart.propTypes = {
   getCart: PropTypes.func.isRequired,
   getProduct: PropTypes.func.isRequired,
   hasProduct: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 const hasProduct = createSelector(
@@ -46,8 +45,8 @@ const hasProduct = createSelector(
 );
 
 const mapStateToProps = state => ({
+  state: state,
   hasProduct: hasProduct(state),
-  loading: state.CartReducer.loading,
 });
 
 const mapDispatchToProps = dispatch =>

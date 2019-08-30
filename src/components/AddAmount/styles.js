@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Colors from 'styles/Colors';
-import { darken } from 'polished';
+import { lighten, darken } from 'polished';
 
 const Button = styled.button`
   color: ${Colors.purples.dark1};
@@ -9,6 +9,10 @@ const Button = styled.button`
 
   &:hover {
     color: ${darken(0.3, Colors.purples.dark1)};
+  }
+
+  &:disabled {
+    color: ${lighten(0.2, Colors.purples.dark1)};
   }
 `;
 

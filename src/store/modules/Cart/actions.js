@@ -22,7 +22,7 @@ export function getCartFail(message) {
   };
 }
 
-// UPDATE
+// UPDATE AMOUNT
 export function updateAmount(id, amount) {
   return {
     type: TYPES.UPDATE_AMOUNT,
@@ -45,6 +45,29 @@ export function updateAmountFail(message) {
   };
 }
 
+// UPDATE SUBTOTAL
+export function updateSubtotal(id, subtotal) {
+  return {
+    type: TYPES.UPDATE_SUBTOTAL,
+    id: id,
+    subtotal,
+  };
+}
+
+export function updateSubtotalSuccess(message) {
+  return {
+    type: TYPES.UPDATE_SUBTOTAL_SUCCESS,
+    message,
+  };
+}
+
+export function updateSubtotalFail(message) {
+  return {
+    type: TYPES.UPDATE_SUBTOTAL_FAIL,
+    message,
+  };
+}
+
 // ADD
 export function addToCart(id) {
   return {
@@ -63,6 +86,28 @@ export function addToCartSuccess(message) {
 export function addToCartFail(message) {
   return {
     type: TYPES.ADD_FAIL,
+    message,
+  };
+}
+
+// REMOVE
+export function removeToCart(id) {
+  return {
+    type: TYPES.REMOVE,
+    id: Number(id),
+  };
+}
+
+export function removeToCartSuccess(message) {
+  return {
+    type: TYPES.REMOVE_SUCCESS,
+    message,
+  };
+}
+
+export function removeToCartFail(message) {
+  return {
+    type: TYPES.REMOVE_FAIL,
     message,
   };
 }

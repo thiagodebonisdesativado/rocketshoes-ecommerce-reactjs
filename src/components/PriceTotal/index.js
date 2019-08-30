@@ -1,12 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
+import { calculeTotal } from 'utils/StateManipulation';
 
 import { Container, Title, Price } from './styles';
 
-export default function PriceTotal() {
+function PriceTotal({ total }) {
   return (
     <Container>
       <Title>TOTAL</Title>
-      <Price>R$1920,28</Price>
+      <Price>{total}</Price>
     </Container>
   );
 }
+
+const calculeCartTotal = createSelector(
+  ({ CartReducer }) => CartReducer.cartList,
+  cartList => calculeTotal(cartList)
+);
+
+const mapStateToProps = state => ({
+  total: calculeCartTotal(state),
+});
+
+export default connect(mapStateToProps)(PriceTotal);

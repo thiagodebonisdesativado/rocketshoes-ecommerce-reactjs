@@ -4,17 +4,18 @@ import PropTypes from 'prop-types';
 import Container from './styles';
 import { AmountReadOnly, AddAmount, RemoveAmount } from 'components';
 
-function AmountController({ amount }) {
+function AmountController({ productID, amount }) {
   return (
     <Container>
-      <RemoveAmount />
+      <RemoveAmount productID={productID} amount={amount} />
       <AmountReadOnly amount={amount} />
-      <AddAmount />
+      <AddAmount productID={productID} amount={amount} />
     </Container>
   );
 }
 
 AmountController.propTypes = {
+  productID: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
 };
 

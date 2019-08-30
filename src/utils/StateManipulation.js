@@ -21,12 +21,21 @@ export function mergeCartListProps(productList, cartList) {
           ...productList,
           ...cartList,
           priceConverted: convertProductPrice(productList.price),
+          subtotalConverted: convertProductPrice(cartList.subtotal),
         });
       }
     });
   });
 
   return arrCartList;
+}
+
+export function calculeTotal(cartList) {
+  let total = cartList.reduce((total, product) => {
+    return (total += product.subtotal);
+  }, 0);
+
+  return convertProductPrice(total);
 }
 
 export function hasProducts(productList, cartList) {
