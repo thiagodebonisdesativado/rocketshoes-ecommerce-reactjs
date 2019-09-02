@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
 
-import { filterProductAmount } from 'utils/StateManipulation';
+import * as StateManipulation from 'utils/StateManipulation';
 
 import Container from './styles';
 
-function ProductAmount({ productID, amount }) {
+function ProductAmount({ productID }) {
+  const cartList = useSelector(({ CartReducer }) => CartReducer.cartList);
+
+  const productAmount = useMemo(() => {
+    return StateManipulation.filterProductAmount(cartList, productID);
+  }, [cartList, productID]);
+
   return (
     <Container>
       <MdAddShoppingCart size={15} />
-      <small>{amount(productID)}</small>
+      <small>{productAmount}</small>
     </Container>
   );
 }
 
 ProductAmount.propTypes = {
   productID: PropTypes.number.isRequired,
-  amount: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ CartReducer }) => ({
-  amount: productID => filterProductAmount(CartReducer.cartList, productID),
-});
-
-export default connect(mapStateToProps)(ProductAmount);
+export default ProductAmount;

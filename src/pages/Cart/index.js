@@ -1,59 +1,39 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { createSelector } from 'reselect';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { hasProducts } from 'utils/StateManipulation';
-import { getProduct } from 'store/modules/Product/actions';
-import { getCart } from 'store/modules/Cart/actions';
+import * as StateManipulation from 'utils/StateManipulation';
+import * as ProductActions from 'store/modules/Product/actions';
+import * as CartActions from 'store/modules/Cart/actions';
 
 import GlobalStyle from 'styles/Global';
 import Section from './styles';
 import { Header, CartList, Footer } from 'components';
 
-class Cart extends Component {
-  componentDidMount() {
-    this.props.getCart();
-    this.props.getProduct();
-  }
+export default function Cart() {
+  const dispatchRedux = useDispatch();
+  const cartList = useSelector(({ CartReducer }) => CartReducer.cartList);
+  const productList = useSelector(
+    ({ ProductReducer }) => ProductReducer.productList
+  );
 
-  render() {
-    return (
-      <>
-        <GlobalStyle isLoading={false} />
-        <Header />
-        <Section isLoading={false}>
-          {this.props.hasProduct && <Footer />}
-          {this.props.hasProduct && <CartList />}
-          {this.props.hasProduct && <Footer />}
-        </Section>
-      </>
-    );
-  }
+  const hasProduct = useCallback(() => {
+    return StateManipulation.hasProducts(productList, cartList);
+  }, [cartList, productList]);
+
+  useEffect(() => {
+    dispatchRedux(CartActions.getCart());
+    dispatchRedux(ProductActions.getProduct());
+  }, [dispatchRedux]);
+
+  return (
+    <>
+      <GlobalStyle isLoading={false} />
+      <Header />
+      <Section isLoading={false}>
+        {hasProduct() && <Footer />}
+        {hasProduct() && <CartList />}
+        {hasProduct() && <Footer />}
+      </Section>
+    </>
+  );
 }
-
-Cart.propTypes = {
-  getCart: PropTypes.func.isRequired,
-  getProduct: PropTypes.func.isRequired,
-  hasProduct: PropTypes.bool.isRequired,
-};
-
-const hasProduct = createSelector(
-  ({ ProductReducer }) => ProductReducer.productList,
-  ({ CartReducer }) => CartReducer.cartList,
-  (productList, cartList) => hasProducts(productList, cartList)
-);
-
-const mapStateToProps = state => ({
-  state: state,
-  hasProduct: hasProduct(state),
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getProduct, getCart }, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Cart);

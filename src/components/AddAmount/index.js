@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdAddCircleOutline } from 'react-icons/md';
 
-import { updateAmount } from 'store/modules/Cart/actions';
+import * as CartActions from 'store/modules/Cart/actions';
 
 import Button from './styles';
 
-function AddAmount({ productID, amount, updateAmount, loading }) {
+function AddAmount({ productID, amount }) {
+  const dispatchRedux = useDispatch();
+  const cartIsLoading = useSelector(({ CartReducer }) => CartReducer.loading);
+
   return (
     <Button
       type="button"
-      onClick={_ => updateAmount(productID, amount + 1)}
-      disabled={loading}
+      onClick={_ =>
+        dispatchRedux(CartActions.updateAmount(productID, amount + 1))
+      }
+      disabled={cartIsLoading}
     >
       <MdAddCircleOutline size={20} />
     </Button>
@@ -21,20 +25,8 @@ function AddAmount({ productID, amount, updateAmount, loading }) {
 }
 
 AddAmount.propTypes = {
-  updateAmount: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
   productID: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ CartReducer }) => ({
-  loading: CartReducer.loading,
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ updateAmount }, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddAmount);
+export default AddAmount;

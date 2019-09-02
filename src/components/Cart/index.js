@@ -1,30 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { MdShoppingBasket } from 'react-icons/md';
 
 import { AmountMobile, Hyperlink, CartContainer } from './styles';
 import { CartAmount } from 'components';
 
-function Cart({ amount }) {
+export default function Cart() {
+  const cartList = useSelector(({ CartReducer }) => CartReducer.cartList);
+  const cartSize = useMemo(() => cartList.length, [cartList]);
+
   return (
     <Hyperlink to="/cart">
-      <CartAmount amount={amount} />
-
+      <CartAmount amount={cartSize} />
       <CartContainer>
-        <AmountMobile>{amount}</AmountMobile>
+        <AmountMobile>{cartSize}</AmountMobile>
         <MdShoppingBasket size={35} color={'white'} />
       </CartContainer>
     </Hyperlink>
   );
 }
-
-Cart.propTypes = {
-  amount: PropTypes.number.isRequired,
-};
-
-const mapStateToProps = ({ CartReducer }) => ({
-  amount: CartReducer.cartList.length,
-});
-
-export default connect(mapStateToProps)(Cart);

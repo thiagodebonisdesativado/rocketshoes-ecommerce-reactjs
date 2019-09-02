@@ -1,17 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { createSelector } from 'reselect';
-import { connect } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
-import { mergeCartListProps } from 'utils/StateManipulation';
+import * as StateManipulation from 'utils/StateManipulation';
 
 import List from './styles';
 import { CartItem } from 'components';
 
-function CartList({ cartList }) {
+export default function CartList() {
+  const cartList = useSelector(({ CartReducer }) => CartReducer.cartList);
+  const productList = useSelector(
+    ({ ProductReducer }) => ProductReducer.productList
+  );
+
+  const newCartList = useMemo(() => {
+    return StateManipulation.mergeCartListProps(productList, cartList);
+  }, [cartList, productList]);
+
   return (
     <List>
-      {cartList.map(
+      {newCartList.map(
         ({ id, image, title, priceConverted, subtotalConverted, amount }) => {
           return (
             <CartItem
@@ -29,28 +36,3 @@ function CartList({ cartList }) {
     </List>
   );
 }
-
-CartList.propTypes = {
-  cartList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      priceConverted: PropTypes.string.isRequired,
-      subtotalConverted: PropTypes.string.isRequired,
-      amount: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
-};
-
-const mergeProps = createSelector(
-  ({ ProductReducer }) => ProductReducer.productList,
-  ({ CartReducer }) => CartReducer.cartList,
-  (productList, cartList) => mergeCartListProps(productList, cartList)
-);
-
-const mapStateToProps = state => ({
-  cartList: mergeProps(state),
-});
-
-export default connect(mapStateToProps)(CartList);

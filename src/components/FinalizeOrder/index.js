@@ -1,23 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Button from './styles';
 
-function FinalizeOrder({ loading }) {
+export default function FinalizeOrder() {
+  const cartIsLoading = useSelector(({ CartReducer }) => CartReducer.loading);
+
   return (
-    <Button type="button" disabled={loading}>
+    <Button type="button" disabled={cartIsLoading}>
       FINALIZAR PEDIDO
     </Button>
   );
 }
-
-FinalizeOrder.propTypes = {
-  loading: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = ({ CartReducer }) => ({
-  loading: CartReducer.loading,
-});
-
-export default connect(mapStateToProps)(FinalizeOrder);

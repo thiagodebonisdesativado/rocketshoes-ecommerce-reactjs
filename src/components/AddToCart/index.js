@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import { addToCart } from 'store/modules/Cart/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import * as CartActions from 'store/modules/Cart/actions';
 import { Button, Container } from './styles';
 import { ProductAmount, LoadingSpinner } from 'components';
 
-function AddToCart({ productID, addToCart, loading }) {
+function AddToCart({ productID }) {
+  const dispatchRedux = useDispatch();
+  const cartIsLoading = useSelector(({ CartReducer }) => CartReducer.loading);
+
   return (
     <Button
       id={productID}
       type="button"
-      onClick={_ => addToCart(productID)}
-      disabled={loading}
+      onClick={_ => dispatchRedux(CartActions.addToCart(productID))}
+      disabled={cartIsLoading}
     >
       <ProductAmount productID={productID} />
       <Container>
-        {loading && <LoadingSpinner />}
-        {!loading && 'ADICIONAR AO CARRINHO'}
+        {cartIsLoading && <LoadingSpinner />}
+        {!cartIsLoading && 'ADICIONAR AO CARRINHO'}
       </Container>
     </Button>
   );
@@ -26,18 +27,6 @@ function AddToCart({ productID, addToCart, loading }) {
 
 AddToCart.propTypes = {
   productID: PropTypes.number.isRequired,
-  addToCart: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ CartReducer }) => ({
-  loading: CartReducer.loading,
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ addToCart }, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddToCart);
+export default AddToCart;

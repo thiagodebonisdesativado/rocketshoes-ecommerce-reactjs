@@ -1,17 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
-import { convertProductPrice } from 'utils/StateManipulation';
+import * as StateManipulation from 'utils/StateManipulation';
 
 import List from './styles';
 import { ProductItem } from 'components';
 
-function ProductList({ productList }) {
+export default function ProductList() {
+  const productList = useSelector(
+    ({ ProductReducer }) => ProductReducer.productList
+  );
+
+  const newProductList = useMemo(() => {
+    return productList.map(product => {
+      return {
+        ...product,
+        priceConverted: StateManipulation.convertProductPrice(product.price),
+      };
+    });
+  }, [productList]);
+
   return (
     <List>
-      {productList.map(({ id, image, priceConverted, title }) => {
+      {newProductList.map(({ id, image, priceConverted, title }) => {
         return (
           <ProductItem
             key={id}
@@ -25,32 +36,3 @@ function ProductList({ productList }) {
     </List>
   );
 }
-
-ProductList.propTypes = {
-  productList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      priceConverted: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-};
-
-const convertPrice = createSelector(
-  state => state.productList,
-  productList =>
-    productList.map(product => {
-      return {
-        ...product,
-        priceConverted: convertProductPrice(product.price),
-      };
-    })
-);
-
-const mapStateToProps = ({ ProductReducer }) => ({
-  productList: convertPrice(ProductReducer),
-});
-
-export default connect(mapStateToProps)(ProductList);

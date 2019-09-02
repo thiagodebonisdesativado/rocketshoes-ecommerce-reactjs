@@ -1,49 +1,32 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getProduct } from 'store/modules/Product/actions';
-import { getCart } from 'store/modules/Cart/actions';
+import * as ProductActions from 'store/modules/Product/actions';
+import * as CartActions from 'store/modules/Cart/actions';
 
 import GlobalStyle from 'styles/Global';
 import Section from './styles';
 import { Header, ProductList, LoadingSpinner } from 'components';
 
-class Home extends Component {
-  componentDidMount() {
-    this.props.getProduct();
-    this.props.getCart();
-  }
+export default function Home() {
+  const dispatchRedux = useDispatch();
+  const productLoading = useSelector(
+    ({ ProductReducer }) => ProductReducer.loading
+  );
 
-  render() {
-    return (
-      <>
-        <GlobalStyle isLoading={this.props.loading} />
-        <Header />
-        <Section isLoading={this.props.loading}>
-          {this.props.loading && <LoadingSpinner theme="large" />}
-          {!this.props.loading && <ProductList />}
-        </Section>
-      </>
-    );
-  }
+  useEffect(() => {
+    dispatchRedux(ProductActions.getProduct());
+    dispatchRedux(CartActions.getCart());
+  }, [dispatchRedux]);
+
+  return (
+    <>
+      <GlobalStyle isLoading={productLoading} />
+      <Header />
+      <Section isLoading={productLoading}>
+        {productLoading && <LoadingSpinner theme="large" />}
+        {!productLoading && <ProductList />}
+      </Section>
+    </>
+  );
 }
-
-Home.propTypes = {
-  getProduct: PropTypes.func.isRequired,
-  getCart: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = ({ ProductReducer }) => ({
-  loading: ProductReducer.loading,
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getProduct, getCart }, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
